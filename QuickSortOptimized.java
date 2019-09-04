@@ -1,4 +1,4 @@
-public class QuickSort {
+public class QuickSortOptimized {
 
 	public static void main(String[] args) {
 
@@ -7,18 +7,29 @@ public class QuickSort {
 		printSequence(data, "Array Before Quick Sort"); // Printing the
 														// sequence.
 
-		quickSort(data, 0, data.length - 1); // Sorting the array in O(nlog(n))
+		quickSortOptimized(data, 0, data.length - 1); // Sorting the array in
+														// O(nlog(n))
 
 		printSequence(data, "Array After Quick Sort"); // Printing the sequence.
 
 	}
 
-	private static void quickSort(int[] data, int start, int end) {
-		if (start >= end)
-			return;
-		int pIndex = partition(data, start, end);
-		quickSort(data, start, pIndex - 1);
-		quickSort(data, pIndex + 1, end);
+	private static void quickSortOptimized(int[] data, int start, int end) {
+		while (start < end) {
+			int pIndex = partition(data, start, end); // Get Partition Index
+
+			if (pIndex - start < end - pIndex) // If left side is smaller in
+												// size, then sort First
+			{
+				quickSortOptimized(data, start, pIndex - 1);
+				start = pIndex + 1;
+			} else {
+				quickSortOptimized(data, pIndex + 1, end); // If right side is
+															// smaller in size,
+															// then sort First
+				end = pIndex - 1;
+			}
+		}
 	}
 
 	private static int partition(int[] data, int start, int end) {
